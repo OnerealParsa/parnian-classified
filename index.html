@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PARNIAN // CLASSIFIED</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -27,7 +26,185 @@
             color: var(--text);
             line-height: 1.5;
             overflow-x: hidden;
+            direction: rtl;
         }
+        
+        /* ===== CAKE SCREEN ===== */
+        .cake-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        .cake-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .cake-container {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        /* Cake */
+        .cake {
+            position: relative;
+            width: 200px;
+        }
+        
+        .cake-layer {
+            background: linear-gradient(180deg, #f5d6c6 0%, #e8c4b0 100%);
+            border-radius: 10px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .cake-layer-1 {
+            width: 180px;
+            height: 60px;
+            background: linear-gradient(180deg, #f0c7b0 0%, #e0b098 100%);
+        }
+        
+        .cake-layer-2 {
+            width: 150px;
+            height: 50px;
+            background: linear-gradient(180deg, #f5d6c6 0%, #e8c4b0 100%);
+            margin-top: -5px;
+        }
+        
+        .cake-layer-3 {
+            width: 120px;
+            height: 45px;
+            background: linear-gradient(180deg, #fae0d0 0%, #f0c7b0 100%);
+            margin-top: -5px;
+        }
+        
+        .cake-frosting {
+            position: absolute;
+            top: -8px;
+            left: -5px;
+            right: -5px;
+            height: 15px;
+            background: #fff5f0;
+            border-radius: 20px;
+        }
+        
+        .cake-frosting-drip {
+            position: absolute;
+            top: 5px;
+            width: 12px;
+            height: 25px;
+            background: #fff5f0;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .frosting-drip-1 { left: 20px; }
+        .frosting-drip-2 { left: 55px; height: 18px; }
+        .frosting-drip-3 { right: 25px; }
+        .frosting-drip-4 { right: 60px; height: 20px; }
+        
+        /* Candles */
+        .candles-container {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 140px;
+        }
+        
+        .candle {
+            width: 6px;
+            height: 40px;
+            background: linear-gradient(180deg, #fff 0%, #f0e0d0 100%);
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .candle .flame {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 18px;
+            background: radial-gradient(ellipse at center, #fff 0%, #ffd700 30%, #ff8c00 70%, transparent 100%);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.3s ease-in-out infinite alternate;
+            transition: opacity 0.3s ease;
+        }
+        
+        .candle.blown .flame {
+            opacity: 0;
+            animation: none;
+        }
+        
+        .candle .smoke {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: rgba(150, 150, 150, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        .candle.blown .smoke {
+            opacity: 1;
+            animation: riseSmoke 1.5s ease-out forwards;
+        }
+        
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1, 1) rotate(-2deg); }
+            100% { transform: translateX(-50%) scale(1.1, 0.9) rotate(2deg); }
+        }
+        
+        @keyframes riseSmoke {
+            0% { opacity: 0.6; transform: translateX(-50%) translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-50px) scale(3); }
+        }
+        
+        .cake-text {
+            color: white;
+            font-size: 1.2rem;
+            font-family: var(--font-sans);
+            font-weight: 300;
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .cake-text.visible {
+            opacity: 1;
+        }
+        
+        .blow-hint {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        /* ===== MAIN STYLES ===== */
         .screen {
             position: fixed;
             inset: 0;
@@ -54,7 +231,6 @@
         }
         .huge-title { font-size: clamp(5rem, 12vw, 12rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
         .section-title { font-size: clamp(3rem, 8vw, 8rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin: 0.5rem 0; }
-        .small-title { font-size: clamp(2rem, 5vw, 3.5rem); }
         .mono-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--text-lighter); }
         .mono-label-small { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-lighter); }
         .mono-label.light, .mono-label-small.light { color: rgba(255,255,255,0.6); }
@@ -70,16 +246,12 @@
         .btn-mono.light-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
         .small-btn { padding: 0.5rem 1rem; font-size: 0.6rem; }
         .center-btn { display: block; margin: 3rem auto 0; }
-
-        /* Loading */
         .loading-steps { margin: 1.5rem 0; }
         .loading-steps .step { opacity: 0; margin: 0.3rem 0; transition: opacity 0.3s; }
         .loading-steps .step.visible { opacity: 1; }
         .progress-line { width: 200px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; margin-top: 1rem; }
         .progress-fill { width: 0%; height: 100%; background: rgba(255,255,255,0.4); animation: fillLine 1.2s ease-in-out forwards; }
         @keyframes fillLine { to { width: 100%; } }
-
-        /* Navigation */
         .top-nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 56px;
             background: rgba(247, 247, 245, 0.85); backdrop-filter: blur(10px);
@@ -101,8 +273,6 @@
         .dots { display: flex; gap: 0.4rem; }
         .dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; transition: background 0.3s; }
         .dot.active { background: var(--dark); }
-
-        /* Progress */
         .progress-bar-top {
             position: fixed; top: 56px; left: 0; right: 0; z-index: 40; height: 2px;
             background: #e5e5e0; transform: translateY(-100%); transition: transform 0.4s;
@@ -110,14 +280,10 @@
         .progress-bar-top.visible { transform: translateY(0); }
         .progress-main { height: 100%; background: var(--dark); width: 0%; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .progress-secret { position: absolute; top: 0; right: 0; height: 100%; background: rgba(245, 158, 11, 0.5); width: 0%; max-width: 20%; transition: width 0.4s; }
-
-        /* Main */
         #main-content { padding-top: 58px; }
         .section { min-height: 100vh; padding: 4rem 1.5rem; display: flex; align-items: center; }
         .dark-section { background: var(--darker); color: white; }
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
-
-        /* Cards */
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0; }
         .card { padding: 1.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); transition: all 0.3s; cursor: default; }
         .card:hover { background: rgba(255,255,255,0.8); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
@@ -127,8 +293,6 @@
         .chaos-bar { height: 4px; background: #e5e5e0; border-radius: 2px; overflow: hidden; margin-top: 0.8rem; }
         .chaos-fill { height: 100%; background: var(--dark); border-radius: 2px; width: 0%; animation: fillChaos 1.5s ease-out 0.5s forwards; }
         @keyframes fillChaos { to { width: 87%; } }
-
-        /* Photos */
         .photos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0; }
         .photo-card { cursor: pointer; transition: transform 0.3s; }
         .photo-card:hover { transform: translateY(-4px); }
@@ -138,37 +302,21 @@
         .photo-label { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-lighter); margin-top: 0.8rem; }
         .photo-caption { font-size: 0.9rem; color: var(--text-light); font-weight: 300; margin-top: 0.3rem; }
         .secret-msg { text-align: center; font-family: var(--font-mono); font-size: 0.7rem; color: #d97706; margin: 1rem 0; }
-
-        /* Test */
-        .question-text { font-size: 1.8rem; font-weight: 300; margin: 2rem 0; }
-        .answers-grid { display: flex; flex-direction: column; gap: 0.8rem; }
-        .answer-btn { text-align: left; padding: 1rem 1.5rem; border: 1px solid var(--border); background: transparent; cursor: pointer; font-family: var(--font-sans); font-size: 1.1rem; font-weight: 300; transition: all 0.3s; }
-        .answer-btn:hover { border-color: #999; background: #fafaf8; }
-        .answer-btn.selected { border-color: var(--dark); background: #f5f5f3; transform: scale(1.02); }
-        .pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-        .countdown { font-size: 6rem; font-weight: 300; color: white; margin-top: 1rem; }
-
-        /* Reveal */
         .reveal-content { position: relative; z-index: 10; }
         .mt-4 { margin-top: 2rem; }
         .reveal-title { font-size: clamp(4rem, 10vw, 10rem); font-weight: 300; color: white; letter-spacing: -0.02em; margin: 1rem 0; }
         .reveal-meta { display: flex; gap: 1rem; justify-content: center; font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.6); margin: 1rem 0; }
         .reveal-subtitle { font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; color: white; margin: 2rem 0; }
-        .reveal-message { margin: 2rem 0; color: rgba(255,255,255,0.7); font-weight: 300; line-height: 1.8; }
+        .reveal-message { margin: 2rem 0; color: rgba(255,255,255,0.9); font-weight: 300; line-height: 2.2; font-size: 1.2rem; }
         .reveal-message .small { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
         .floating-photos { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; }
         .float-photo { width: 80px; height: 110px; background-size: cover; background-position: center; border: 1px solid rgba(255,255,255,0.1); animation: float 3s ease-in-out infinite; }
         .float-photo:nth-child(2) { animation-delay: 0.5s; }
         .float-photo:nth-child(3) { animation-delay: 1s; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        /* Stars */
         .stars-container { position: absolute; inset: 0; pointer-events: none; }
         .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 2s infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-
-        /* Secret */
         .secret-progress-container { display: flex; justify-content: space-between; margin: 0.5rem 0; }
         .secret-bar { height: 4px; background: #e5e5e0; border-radius: 2px; overflow: hidden; margin: 0.5rem 0 2rem; }
         .secret-fill { height: 100%; background: rgba(245, 158, 11, 0.7); border-radius: 2px; width: 0%; transition: width 0.6s ease; }
@@ -176,21 +324,41 @@
         .system-status p { margin: 0.2rem 0; }
         .corner-egg { position: fixed; bottom: 20px; right: 20px; width: 12px; height: 12px; border-radius: 50%; background: #ccc; opacity: 0; cursor: pointer; transition: all 0.3s; z-index: 60; }
         .corner-egg:hover { opacity: 1; transform: scale(2); background: #999; }
-
-        /* Chat */
         .chat-container { max-width: 500px; margin: 0 auto; padding: 2rem; }
         .message-box { margin: 2rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); backdrop-filter: blur(10px); }
-        .message-text { color: rgba(255,255,255,0.9); font-size: 1.1rem; font-weight: 300; line-height: 2; white-space: pre-line; min-height: 200px; }
-        .typing-cursor::after { content: '▋'; animation: blink 1s step-end infinite; margin-left: 2px; }
+        .message-text { color: rgba(255,255,255,0.9); font-size: 1.2rem; font-weight: 300; line-height: 2.5; white-space: pre-line; min-height: 200px; direction: rtl; text-align: right; }
+        .typing-cursor::after { content: '▋'; animation: blink 1s step-end infinite; margin-right: 2px; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* End */
         .end-title { font-size: clamp(5rem, 12vw, 12rem); font-weight: 300; margin: 1rem 0; }
         .end-text { font-size: 1.2rem; color: var(--text-light); margin: 1rem 0; font-weight: 300; }
         .end-birthday { font-size: 1.5rem; font-weight: 300; margin: 2rem 0; }
         .confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 90; }
-
-        /* Mobile */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 70;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .music-toggle:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .music-toggle.playing {
+            background: var(--dark);
+            color: white;
+            border-color: var(--dark);
+        }
         @media (max-width: 768px) {
             .desktop-nav { display: none; }
             .mobile-nav { display: flex; }
@@ -199,6 +367,7 @@
             .photos-grid { grid-template-columns: 1fr; }
             .photo-wrapper { aspect-ratio: 4/5; }
             .section { padding: 3rem 1rem; }
+            .cake { transform: scale(0.8); }
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -206,17 +375,46 @@
     </style>
 </head>
 <body>
+    <!-- Audio -->
+    <audio id="birthday-audio" loop>
+        <source src="https://dls.musics-fa.com/song/alibz/dlswm/Miras%20-%20Tavalod%20(320).mp3?_=93" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle -->
+    <button id="music-toggle" class="music-toggle" onclick="toggleMusic()" title="موزیک">🎵</button>
+
+    <!-- Cake Screen -->
+    <div id="cake-screen" class="cake-screen">
+        <div class="cake-container">
+            <div class="cake">
+                <div class="cake-layer cake-layer-3">
+                    <div class="cake-frosting">
+                        <div class="cake-frosting-drip frosting-drip-1"></div>
+                        <div class="cake-frosting-drip frosting-drip-2"></div>
+                        <div class="cake-frosting-drip frosting-drip-3"></div>
+                        <div class="cake-frosting-drip frosting-drip-4"></div>
+                    </div>
+                </div>
+                <div class="cake-layer cake-layer-2"></div>
+                <div class="cake-layer cake-layer-1"></div>
+                <div class="candles-container" id="candles-container"></div>
+            </div>
+        </div>
+        <p class="cake-text" id="cake-text">تولدت مبارک پرنیان 🎂</p>
+        <p class="blow-hint" id="blow-hint">فوت کن شمع‌ها رو خاموش کنی 🕯️</p>
+    </div>
+
     <!-- Intro -->
     <div id="intro" class="screen active">
         <div class="grid-pattern"></div>
         <div class="noise-overlay"></div>
         <div class="content-center">
             <p class="mono-label" id="title-egg">P-01</p>
-            <p class="mono-label-small">PERSONAL FILE / 01</p>
-            <h1 class="huge-title">PARNIAN</h1>
-            <p class="mono-label">// CLASSIFIED</p>
-            <p class="subtitle">Ye chize koochik ke shayad gharar nabood peydash koni.</p>
-            <button class="btn-mono" onclick="enterSite()">ENTER →</button>
+            <p class="mono-label-small">پرونده شخصی / ۰۱</p>
+            <h1 class="huge-title">پرنیان</h1>
+            <p class="mono-label">// محرمانه</p>
+            <p class="subtitle">یه چیز کوچیک که شاید قرار نبود پیدا کنی...</p>
+            <button class="btn-mono" onclick="enterSite()">ورود ←</button>
         </div>
     </div>
 
@@ -225,9 +423,9 @@
         <div class="dark-bg">
             <p class="mono-label light">P-01</p>
             <div class="loading-steps">
-                <p class="mono-label-small light step" data-delay="0">ACCESSING FILE...</p>
-                <p class="mono-label-small light step" data-delay="300">DECRYPTING...</p>
-                <p class="mono-label-small light step" data-delay="700">ACCESS GRANTED</p>
+                <p class="mono-label-small light step" data-delay="0">در حال دسترسی به پرونده...</p>
+                <p class="mono-label-small light step" data-delay="300">در حال رمزگشایی...</p>
+                <p class="mono-label-small light step" data-delay="700">دسترسی مجاز</p>
             </div>
             <div class="progress-line"><div class="progress-fill"></div></div>
         </div>
@@ -235,21 +433,17 @@
 
     <!-- Nav -->
     <nav id="nav" class="top-nav">
-        <div class="nav-left"><span class="mono-label-small">P-01 / CLASSIFIED</span></div>
+        <div class="nav-left"><span class="mono-label-small">P-01 / محرمانه</span></div>
         <div class="nav-right desktop-nav">
-            <button onclick="scrollToSection('file01')" class="nav-link active" data-section="file01">FILE 01</button>
-            <button onclick="scrollToSection('evidence')" class="nav-link" data-section="evidence">EVIDENCE</button>
-            <button onclick="scrollToSection('test')" class="nav-link" data-section="test">TEST</button>
-            <button onclick="scrollToSection('reveal')" class="nav-link" data-section="reveal">REVEAL</button>
-            <button onclick="scrollToSection('secret')" class="nav-link" data-section="secret">SECRET</button>
-            <button onclick="toggleSound()" class="icon-btn"><span id="sound-icon">🔇</span></button>
+            <button onclick="scrollToSection('file01')" class="nav-link active" data-section="file01">پرونده ۰۱</button>
+            <button onclick="scrollToSection('evidence')" class="nav-link" data-section="evidence">مدارک</button>
+            <button onclick="scrollToSection('reveal')" class="nav-link" data-section="reveal">سورپرایز</button>
+            <button onclick="scrollToSection('secret')" class="nav-link" data-section="secret">راز</button>
         </div>
         <div class="nav-right mobile-nav">
-            <button onclick="toggleSound()" class="icon-btn"><span id="sound-icon-mobile">🔇</span></button>
             <div class="dots">
                 <span class="dot active" data-section="file01"></span>
                 <span class="dot" data-section="evidence"></span>
-                <span class="dot" data-section="test"></span>
                 <span class="dot" data-section="reveal"></span>
                 <span class="dot" data-section="secret"></span>
             </div>
@@ -267,93 +461,75 @@
         <!-- File 01 -->
         <section id="file01" class="section">
             <div class="container">
-                <p class="mono-label">PARNIAN // FILE 01</p>
-                <h2 class="section-title">Probably cute.</h2>
-                <p class="section-subtitle">Talaash kardim andazegirish konim... Nashod.</p>
+                <p class="mono-label">پرنیان // پرونده ۰۱</p>
+                <h2 class="section-title">احتمالاً بامزه.</h2>
+                <p class="section-subtitle">سعی کردیم اندازه‌اش بگیریم... نشد.</p>
                 <div class="cards-grid">
-                    <div class="card"><p class="card-label">STATUS</p><p class="card-value">Probably cute.</p></div>
-                    <div class="card" id="energy-card"><p class="card-label">ENERGY</p><p class="card-value">∞</p></div>
-                    <div class="card card-wide"><p class="card-label">CHAOS LEVEL</p><p class="card-value">87%</p><div class="chaos-bar"><div class="chaos-fill"></div></div></div>
-                    <div class="card"><p class="card-label">BIRTHDAY STATUS</p><p class="card-value">ACTIVE 🎂</p></div>
-                    <div class="card"><p class="card-label">CLASSIFICATION</p><p class="card-value">Highly unpredictable</p></div>
-                    <div class="card"><p class="card-label">THREAT LEVEL</p><p class="card-value">Cute but suspicious</p></div>
-                    <div class="card"><p class="card-label">AGE</p><p class="card-value">19</p></div>
-                    <div class="card"><p class="card-label">DATE</p><p class="card-value">15 MORDAD</p></div>
+                    <div class="card"><p class="card-label">وضعیت</p><p class="card-value">احتمالاً بامزه</p></div>
+                    <div class="card" id="energy-card"><p class="card-label">انرژی</p><p class="card-value">∞</p></div>
+                    <div class="card card-wide"><p class="card-label">سطح آشوب</p><p class="card-value">٪۸۷</p><div class="chaos-bar"><div class="chaos-fill"></div></div></div>
+                    <div class="card"><p class="card-label">وضعیت تولد</p><p class="card-value">فعال 🎂</p></div>
+                    <div class="card"><p class="card-label">طبقه‌بندی</p><p class="card-value">کاملاً غیرقابل پیش‌بینی</p></div>
+                    <div class="card"><p class="card-label">سطح تهدید</p><p class="card-value">بامزه ولی مشکوک</p></div>
+                    <div class="card"><p class="card-label">سن</p><p class="card-value">۱۹</p></div>
+                    <div class="card"><p class="card-label">تاریخ</p><p class="card-value">۱۵ مرداد</p></div>
                 </div>
-                <button class="btn-mono center-btn" onclick="scrollToSection('evidence')">CONTINUE →</button>
+                <button class="btn-mono center-btn" onclick="scrollToSection('evidence')">ادامه ←</button>
             </div>
         </section>
 
         <!-- Evidence -->
         <section id="evidence" class="section">
             <div class="container">
-                <p class="mono-label">FILE 02 / VISUAL EVIDENCE</p>
-                <h2 class="section-title">Evidence.</h2>
-                <p class="section-subtitle">Chand ta dalil peyda kardim...</p>
-                <p id="secret-found-msg" class="secret-msg hidden">Secret found. Nice.</p>
+                <p class="mono-label">پرونده ۰۲ / مدارک تصویری</p>
+                <h2 class="section-title">مدارک.</h2>
+                <p class="section-subtitle">چند تا دلیل پیدا کردیم...</p>
+                <p id="secret-found-msg" class="secret-msg hidden">راز پیدا شد. خوب بود.</p>
                 <div class="photos-grid" id="photos-container">
-                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo1.jpg')"></div></div><p class="photo-label">EVIDENCE 01</p><p class="photo-caption">In tasvir hich chizi ro sabet nemikone... vali mashkooke.</p></div>
-                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo2.jpg')"></div></div><p class="photo-label">EVIDENCE 02</p><p class="photo-caption">Situation getting a little weird...</p></div>
-                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo3.jpg')"></div></div><p class="photo-label">EVIDENCE 03</p><p class="photo-caption">Ok. We have a problem.</p></div>
+                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo1.jpg')"></div></div><p class="photo-label">مدرک ۰۱</p><p class="photo-caption">این تصویر هیچی رو ثابت نمی‌کنه... ولی مشکوکه.</p></div>
+                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo2.jpg')"></div></div><p class="photo-label">مدرک ۰۲</p><p class="photo-caption">اوضاع یه کم داره عجیب میشه...</p></div>
+                    <div class="photo-card"><div class="photo-wrapper"><div class="photo" style="background-image:url('images/photo3.jpg')"></div></div><p class="photo-label">مدرک ۰۳</p><p class="photo-caption">باشه. ما یه مشکل داریم.</p></div>
                 </div>
-                <button class="btn-mono center-btn" onclick="scrollToSection('test')">NEXT →</button>
-            </div>
-        </section>
-
-        <!-- Test -->
-        <section id="test" class="section">
-            <div class="container">
-                <p class="mono-label">PARNIAN TEST / 03</p>
-                <h2 class="section-title small-title">Bebinim khodeto cheghadr mishenasi...</h2>
-                <p id="question-counter" class="mono-label">QUESTION 01/04</p>
-                <div id="question-container"><h3 id="question-text" class="question-text"></h3><div id="answers-container" class="answers-grid"></div></div>
-            </div>
-        </section>
-
-        <!-- Analyzing -->
-        <section id="analyzing" class="section dark-section hidden">
-            <div class="content-center">
-                <p class="mono-label light pulse">Analyzing...</p>
-                <div id="countdown" class="countdown"></div>
+                <button class="btn-mono center-btn" onclick="scrollToSection('reveal')">بعدی ←</button>
             </div>
         </section>
 
         <!-- Reveal -->
-        <section id="reveal" class="section dark-section hidden">
+        <section id="reveal" class="section dark-section">
             <div class="stars-container"></div>
             <div class="content-center reveal-content">
-                <p class="mono-label light">BIRTHDAY FILE</p>
-                <p class="mono-label light">STATUS: ACTIVATED</p>
-                <p class="mono-label light mt-4">SUBJECT</p>
-                <h1 class="reveal-title">PARNIAN</h1>
-                <div class="reveal-meta"><span>AGE: 19</span><span>|</span><span>DATE: 15 MORDAD</span></div>
-                <h2 class="reveal-subtitle">HAPPY 19TH BIRTHDAY</h2>
+                <p class="mono-label light">پرونده تولد</p>
+                <p class="mono-label light">وضعیت: فعال‌شده</p>
+                <p class="mono-label light mt-4">موضوع</p>
+                <h1 class="reveal-title">پرنیان</h1>
+                <div class="reveal-meta"><span>سن: ۱۹</span><span>|</span><span>تاریخ: ۱۵ مرداد</span></div>
+                <h2 class="reveal-subtitle">تولد ۱۹ سالگیت مبارک</h2>
                 <div class="reveal-message">
-                    <p>Tavalodet mobarak Parnian 🎂🤍</p>
-                    <p class="small">Omidvaram sale jadidet por bashe az chizayi ke vaghti yadeshon miofti labkhand bezani.</p>
-                    <p>Happy Birthday, Parnian 🤍</p>
+                    <p>🎂🤍 تولدت مبارک پرنیان</p>
+                    <p class="small">امیدوارم سال جدیدت پر باشه از چیزایی که وقتی یادشون میفتی لبخند بزنی.</p>
+                    <p>🤍 تولدت مبارک پرنیان</p>
                 </div>
                 <div class="floating-photos">
                     <div class="float-photo" style="background-image:url('images/photo1.jpg')"></div>
                     <div class="float-photo" style="background-image:url('images/photo2.jpg')"></div>
                     <div class="float-photo" style="background-image:url('images/photo3.jpg')"></div>
                 </div>
-                <button class="btn-mono light-btn" onclick="scrollToSection('secret')">CONTINUE →</button>
+                <button class="btn-mono light-btn" onclick="scrollToSection('secret')">ادامه ←</button>
             </div>
         </section>
 
         <!-- Secret -->
         <section id="secret" class="section">
             <div class="container">
-                <p class="mono-label">ONE LAST THING</p>
-                <h2 class="section-title">Khab...</h2>
-                <p class="section-subtitle">gharar nabood inja beresi 😂</p>
-                <p class="mono-label mt-4">SECRET LEVEL</p>
-                <div class="secret-progress-container"><span id="secret-percent" class="mono-label-small">0%</span><span class="mono-label-small">100%</span></div>
+                <p class="mono-label">یه چیز دیگه</p>
+                <h2 class="section-title">خب...</h2>
+                <p class="section-subtitle">قرار نبود اینجا برسی 😂</p>
+                <p class="mono-label mt-4">مرحله مخفی</p>
+                <div class="secret-progress-container"><span id="secret-percent" class="mono-label-small">۰٪</span><span class="mono-label-small">۱۰۰٪</span></div>
                 <div class="secret-bar"><div id="secret-fill" class="secret-fill"></div></div>
-                <button onclick="toggleSystemStatus()" class="btn-mono small-btn">SYSTEM STATUS</button>
-                <div id="system-status" class="system-status hidden"><p>○ TITLE</p><p>○ ENERGY</p><p>○ PHOTO</p><p>○ CORNER</p><p>○ FINAL</p></div>
-                <button id="keep-looking-btn" class="btn-mono center-btn hidden" onclick="showSecretChat()">KEEP LOOKING →</button>
+                <button onclick="toggleSystemStatus()" class="btn-mono small-btn">وضعیت سیستم</button>
+                <div id="system-status" class="system-status hidden"><p>○ عنوان</p><p>○ انرژی</p><p>○ عکس</p><p>○ گوشه</p><p>○ نهایی</p></div>
+                <button id="keep-looking-btn" class="btn-mono center-btn hidden" onclick="showSecretChat()">به جستجو ادامه بده ←</button>
                 <div id="corner-egg" class="corner-egg" onclick="addEasterEgg('corner')"></div>
             </div>
         </section>
@@ -361,22 +537,22 @@
         <!-- Chat -->
         <section id="chat" class="section dark-section hidden">
             <div class="chat-container">
-                <p class="mono-label light">PRIVATE MESSAGE</p>
-                <p class="mono-label-small light">FROM: PARSA</p>
-                <p class="mono-label-small light">STATUS: DELIVERED</p>
+                <p class="mono-label light">پیام خصوصی</p>
+                <p class="mono-label-small light">از: پارسا</p>
+                <p class="mono-label-small light">وضعیت: دریافت شد</p>
                 <div class="message-box"><p id="typing-text" class="message-text"></p></div>
-                <button id="end-btn" class="btn-mono light-btn hidden" onclick="endExperience()">END OF FILE →</button>
+                <button id="end-btn" class="btn-mono light-btn hidden" onclick="endExperience()">پایان پرونده ←</button>
             </div>
         </section>
 
         <!-- End -->
         <section id="end" class="section hidden">
             <div class="content-center">
-                <p class="mono-label">END OF FILE</p>
-                <h1 class="end-title">OKAY.</h1>
-                <p class="end-text">That's it.<br>No more secrets.<br>Probably.</p>
-                <p class="end-birthday">Happy Birthday, Parnian 🎂</p>
-                <button class="btn-mono" onclick="restartExperience()">↻ START AGAIN</button>
+                <p class="mono-label">پایان پرونده</p>
+                <h1 class="end-title">باشه.</h1>
+                <p class="end-text">همین بود.<br>دیگه رازی نیست.<br>احتمالاً.</p>
+                <p class="end-birthday">🎂 تولدت مبارک پرنیان</p>
+                <button class="btn-mono" onclick="restartExperience()">↻ شروع دوباره</button>
             </div>
         </section>
     </main>
@@ -384,19 +560,87 @@
     <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
     <script>
-        let soundEnabled = false;
+        // ============ AUDIO ============
+        const audio = document.getElementById('birthday-audio');
+        let musicPlaying = false;
+        const musicToggle = document.getElementById('music-toggle');
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                musicPlaying = false;
+                musicToggle.classList.remove('playing');
+                musicToggle.textContent = '🎵';
+            } else {
+                audio.play().catch(() => {});
+                musicPlaying = true;
+                musicToggle.classList.add('playing');
+                musicToggle.textContent = '🎵';
+            }
+        }
+
+        // ============ CAKE & CANDLES ============
+        function createCandles() {
+            const container = document.getElementById('candles-container');
+            for (let i = 0; i < 19; i++) {
+                const candle = document.createElement('div');
+                candle.className = 'candle';
+                candle.innerHTML = '<div class="flame"></div><div class="smoke"></div>';
+                container.appendChild(candle);
+            }
+        }
+
+        let candlesBlown = 0;
+        let cakeDone = false;
+
+        function blowCandles() {
+            if (cakeDone) return;
+            
+            const candles = document.querySelectorAll('.candle');
+            candles.forEach((candle, index) => {
+                setTimeout(() => {
+                    candle.classList.add('blown');
+                    candlesBlown++;
+                    
+                    if (candlesBlown === 19) {
+                        cakeDone = true;
+                        document.getElementById('blow-hint').style.opacity = '0';
+                        document.getElementById('cake-text').classList.add('visible');
+                        
+                        // Play music when candles are blown
+                        if (!musicPlaying) {
+                            toggleMusic();
+                        }
+                        
+                        // Transition to main site
+                        setTimeout(() => {
+                            document.getElementById('cake-screen').classList.add('hidden');
+                            launchConfetti();
+                        }, 2000);
+                    }
+                }, index * 150);
+            });
+        }
+
+        // Click or tap anywhere to blow candles
+        document.getElementById('cake-screen').addEventListener('click', blowCandles);
+        document.getElementById('cake-screen').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            blowCandles();
+        });
+
+        // Keyboard: press space to blow
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !cakeDone) {
+                e.preventDefault();
+                blowCandles();
+            }
+        });
+
+        createCandles();
+
+        // ============ STATE ============
         let easterEggs = JSON.parse(localStorage.getItem('parnian-easter-eggs') || '[]');
-        let currentQuestion = 0;
-        let testScore = 0;
-
-        const questions = [
-            { question: "Sobha ya shab?", answers: ["Sobh", "Shab", "Har do", "Hichkodom 😂"] },
-            { question: "Safar ya khone?", answers: ["Safar", "Khone", "Har do", "Bastegi dare"] },
-            { question: "Sweet ya salty?", answers: ["Sweet", "Salty", "Har do ba ham", "Sour 😏"] },
-            { question: "Plan ya spontaneity?", answers: ["Plan", "Spontaneity", "Plan ke mipare", "Harfi nadaram"] }
-        ];
-
-        const secretMessage = "پرنیان 😄\n\nتولدت مبارککک 🎂🤍\n\n۱۹ سالگیت مبارک!\n\nمیخواستی یه روز زودتر فالوت کنم که کادوت یه روز دیر نشه 😂\n\nامیدوارم سال جدید زندگیت پر باشه از اتفاقای خوب، خنده‌های زیاد و کلی خاطره قشنگ.\n\nHappy Birthday Parnian 🤍\n— Parsa";
 
         function addEasterEgg(egg) {
             if (!easterEggs.includes(egg)) {
@@ -409,15 +653,19 @@
         }
 
         function updateSecretProgress() {
-            const percent = Math.min(easterEggs.length * 20, 100);
-            document.getElementById('secret-percent').textContent = percent + '%';
+            var percent = Math.min(easterEggs.length * 20, 100);
+            document.getElementById('secret-percent').textContent = percent + '٪';
             document.getElementById('secret-fill').style.width = percent + '%';
-            document.querySelector('.progress-secret').style.width = (percent / 5) + '%';
+            var secretBar = document.querySelector('.progress-secret');
+            if (secretBar) secretBar.style.width = (percent / 5) + '%';
         }
 
         function updateSystemStatus() {
-            const all = ['title', 'energy', 'photo', 'corner', 'final'];
-            document.getElementById('system-status').innerHTML = all.map(e => `<p>${easterEggs.includes(e) ? '✓' : '○'} ${e.toUpperCase()}</p>`).join('');
+            var all = ['title', 'energy', 'photo', 'corner', 'final'];
+            var labels = { title: 'عنوان', energy: 'انرژی', photo: 'عکس', corner: 'گوشه', final: 'نهایی' };
+            document.getElementById('system-status').innerHTML = all.map(function(e) {
+                return '<p>' + (easterEggs.includes(e) ? '✓' : '○') + ' ' + labels[e] + '</p>';
+            }).join('');
         }
 
         function toggleSystemStatus() { document.getElementById('system-status').classList.toggle('hidden'); }
@@ -429,20 +677,22 @@
         }
 
         function updateNav(id) {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.section === id));
-            document.querySelectorAll('.dot').forEach(d => d.classList.toggle('active', d.dataset.section === id));
+            document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.toggle('active', l.dataset.section === id); });
+            document.querySelectorAll('.dot').forEach(function(d) { d.classList.toggle('active', d.dataset.section === id); });
         }
 
         function updateProgress(id) {
-            const map = { file01: 10, evidence: 25, test: 40, analyzing: 60, reveal: 80, secret: 90, chat: 95, end: 100 };
+            var map = { file01: 15, evidence: 35, reveal: 70, secret: 90, chat: 95, end: 100 };
             document.querySelector('.progress-main').style.width = (map[id] || 0) + '%';
         }
 
         function enterSite() {
             document.getElementById('intro').classList.remove('active');
             document.getElementById('loading').classList.remove('hidden');
-            document.querySelectorAll('.step').forEach((s, i) => setTimeout(() => s.classList.add('visible'), parseInt(s.dataset.delay)));
-            setTimeout(() => {
+            document.querySelectorAll('.step').forEach(function(s, i) {
+                setTimeout(function() { s.classList.add('visible'); }, parseInt(s.dataset.delay));
+            });
+            setTimeout(function() {
                 document.getElementById('loading').classList.add('hidden');
                 document.getElementById('nav').classList.add('visible');
                 document.getElementById('progress-bar').classList.add('visible');
@@ -452,83 +702,30 @@
             }, 1500);
         }
 
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const icon = soundEnabled ? '🔊' : '🔇';
-            document.getElementById('sound-icon').textContent = icon;
-            document.getElementById('sound-icon-mobile').textContent = icon;
-        }
-
-        function showQuestion() {
-            if (currentQuestion >= questions.length) {
-                document.getElementById('test').classList.add('hidden');
-                document.getElementById('analyzing').classList.remove('hidden');
-                document.getElementById('analyzing').scrollIntoView({ behavior: 'smooth' });
-                updateProgress('analyzing');
-                startCountdown();
-                return;
-            }
-            const q = questions[currentQuestion];
-            document.getElementById('question-text').textContent = q.question;
-            document.getElementById('question-counter').textContent = `QUESTION ${String(currentQuestion + 1).padStart(2, '0')}/04`;
-            const container = document.getElementById('answers-container');
-            container.innerHTML = '';
-            q.answers.forEach((a, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'answer-btn';
-                btn.textContent = a;
-                btn.onclick = () => {
-                    document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    if (i === 0) testScore++;
-                    setTimeout(() => { currentQuestion++; showQuestion(); }, 500);
-                };
-                container.appendChild(btn);
-            });
-        }
-
-        function startCountdown() {
-            const el = document.getElementById('countdown');
-            let count = 3;
-            const interval = setInterval(() => {
-                if (count > 0) {
-                    el.textContent = count;
-                    count--;
-                } else {
-                    clearInterval(interval);
-                    document.getElementById('analyzing').classList.add('hidden');
-                    document.getElementById('reveal').classList.remove('hidden');
-                    document.getElementById('reveal').scrollIntoView({ behavior: 'smooth' });
-                    updateProgress('reveal');
-                    launchConfetti();
-                }
-            }, 800);
-        }
-
         function launchConfetti() {
-            const canvas = document.getElementById('confetti-canvas');
-            const ctx = canvas.getContext('2d');
+            var canvas = document.getElementById('confetti-canvas');
+            var ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const particles = [];
-            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#95E1D3', '#F38181', '#AA96DA'];
-            for (let i = 0; i < 80; i++) {
+            var particles = [];
+            var colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#95E1D3', '#F38181', '#AA96DA'];
+            for (var i = 0; i < 100; i++) {
                 particles.push({
                     x: Math.random() * canvas.width, y: -20,
-                    size: Math.random() * 8 + 4,
+                    size: Math.random() * 10 + 5,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    speedX: Math.random() * 4 - 2, speedY: Math.random() * 3 + 2,
+                    speedX: Math.random() * 6 - 3, speedY: Math.random() * 4 + 3,
                     rotation: Math.random() * 360, rotationSpeed: Math.random() * 10 - 5
                 });
             }
-            let frame = 0;
+            var frame = 0;
             function animate() {
-                if (frame >= 150) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+                if (frame >= 200) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    p.x += p.speedX; p.y += p.speedY; p.rotation += p.rotationSpeed; p.speedY += 0.05;
+                particles.forEach(function(p) {
+                    p.x += p.speedX; p.y += p.speedY; p.rotation += p.rotationSpeed; p.speedY += 0.06;
                     ctx.save(); ctx.translate(p.x, p.y); ctx.rotate((p.rotation * Math.PI) / 180);
-                    ctx.fillStyle = p.color; ctx.globalAlpha = Math.max(0, 1 - frame / 150);
+                    ctx.fillStyle = p.color; ctx.globalAlpha = Math.max(0, 1 - frame / 200);
                     ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size / 2);
                     ctx.restore();
                 });
@@ -537,18 +734,20 @@
             animate();
         }
 
+        var secretMessage = "پرنیان 😄\n\nتولدت مبارککک 🎂🤍\n\n۱۹ سالگیت مبارک!\n\nمیخواستی یه روز زودتر فالوت کنم که کادوت یه روز دیر نشه 😂\n\nامیدوارم سال جدید زندگیت پر باشه از اتفاقای خوب، خنده‌های زیاد و کلی خاطره قشنگ.\n\n🤍 Happy Birthday Parnian\n— پارسا";
+
         function showSecretChat() {
             document.getElementById('secret').classList.add('hidden');
             document.getElementById('chat').classList.remove('hidden');
             document.getElementById('chat').scrollIntoView({ behavior: 'smooth' });
             updateProgress('chat');
-            const typingEl = document.getElementById('typing-text');
+            var typingEl = document.getElementById('typing-text');
             typingEl.classList.add('typing-cursor');
-            let index = 0;
-            const interval = setInterval(() => {
+            var index = 0;
+            var interval = setInterval(function() {
                 if (index < secretMessage.length) { typingEl.textContent += secretMessage[index]; index++; }
                 else { clearInterval(interval); typingEl.classList.remove('typing-cursor'); document.getElementById('end-btn').classList.remove('hidden'); }
-            }, 40);
+            }, 50);
         }
 
         function endExperience() {
@@ -564,53 +763,76 @@
             document.getElementById('progress-bar').classList.remove('visible');
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('intro').classList.add('active');
-            currentQuestion = 0; testScore = 0;
             document.querySelector('.progress-main').style.width = '0%';
-            ['loading', 'reveal', 'analyzing', 'chat', 'end'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            ['loading', 'reveal', 'chat', 'end'].forEach(function(id) { document.getElementById(id).classList.add('hidden'); });
             document.getElementById('secret-found-msg').classList.add('hidden');
             document.getElementById('keep-looking-btn').classList.add('hidden');
             document.getElementById('end-btn').classList.add('hidden');
             document.getElementById('typing-text').textContent = '';
-            document.getElementById('countdown').textContent = '';
+            document.getElementById('cake-screen').classList.remove('hidden');
+            candlesBlown = 0;
+            cakeDone = false;
+            document.getElementById('blow-hint').style.opacity = '1';
+            document.getElementById('cake-text').classList.remove('visible');
+            document.querySelectorAll('.candle').forEach(function(c) { c.classList.remove('blown'); });
         }
 
         // Stars
-        const starsContainer = document.querySelector('.stars-container');
-        for (let i = 0; i < 30; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 2 + 's';
-            starsContainer.appendChild(star);
-        }
+        (function() {
+            var container = document.querySelector('.stars-container');
+            if (container) {
+                for (var i = 0; i < 40; i++) {
+                    var star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    container.appendChild(star);
+                }
+            }
+        })();
 
         // Easter eggs
-        document.getElementById('title-egg').onclick = () => addEasterEgg('title');
-        document.getElementById('energy-card').onclick = () => addEasterEgg('energy');
-        document.getElementById('photos-container').ondblclick = () => {
+        document.getElementById('title-egg').onclick = function() { addEasterEgg('title'); };
+        document.getElementById('energy-card').onclick = function() { addEasterEgg('energy'); };
+        document.getElementById('photos-container').ondblclick = function() {
             addEasterEgg('photo');
             document.getElementById('secret-found-msg').classList.remove('hidden');
         };
 
-        // Scroll observer for test
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting && e.target.id === 'test') {
-                    currentQuestion = 0; testScore = 0; showQuestion();
-                    updateNav('test'); updateProgress('test');
-                }
-                if (e.isIntersecting && ['file01','evidence','test','reveal','secret'].includes(e.target.id)) {
+        // Scroll observer
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting && ['file01','evidence','reveal','secret'].indexOf(e.target.id) !== -1) {
                     updateNav(e.target.id); updateProgress(e.target.id);
                 }
             });
         }, { threshold: 0.3 });
-        ['file01','evidence','test','reveal','secret'].forEach(id => obs.observe(document.getElementById(id)));
+
+        ['file01','evidence','reveal','secret'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) obs.observe(el);
+        });
 
         // Init
         updateSecretProgress();
         updateSystemStatus();
         if (easterEggs.length >= 5) document.getElementById('keep-looking-btn').classList.remove('hidden');
+
+        // Auto-add final egg on secret level
+        setTimeout(function() {
+            var secretSection = document.getElementById('secret');
+            var obs2 = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        addEasterEgg('final');
+                        obs2.unobserve(secretSection);
+                    }
+                });
+            }, { threshold: 0.5 });
+            if (secretSection) obs2.observe(secretSection);
+        }, 1000);
     </script>
 </body>
 </html>
